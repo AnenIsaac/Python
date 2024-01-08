@@ -18,18 +18,24 @@ r = requests.get(url)
 data = r.json()
 time_series = data.get('Time Series (60min)', {})
 yesterday_last_element = list(time_series.items())[0][-1] if time_series else None
-yesterday_closing_price = yesterday_last_element['4. close']
-print(yesterday_last_element)
-
+yesterday_closing_price = float(yesterday_last_element['4. close'])
+print(f"yesterday closing price = {yesterday_closing_price}")
+      
 #TODO 2. - Get the day before yesterday's closing stock price
 before_yesterday_last_element = list(time_series.items())[16][-1] if time_series else None
-before_yesterday_closing_price = before_yesterday_last_element['4. close']
+before_yesterday_closing_price = float(before_yesterday_last_element['4. close'])
+print(f"before yesterday closing price = {before_yesterday_closing_price}")
 #TODO 3. - Find the positive difference between 1 and 2. e.g. 40 - 20 = -20, but the positive difference is 20. Hint: https://www.w3schools.com/python/ref_func_abs.asp
-
+Positive_difference = abs(before_yesterday_closing_price - yesterday_closing_price)
+print(f"positive difference = {Positive_difference}")
 #TODO 4. - Work out the percentage difference in price between closing price yesterday and closing price the day before yesterday.
-
+percentage_difference = (Positive_difference / before_yesterday_closing_price) * 100
+print(f"percentage difference = {percentage_difference}")
 #TODO 5. - If TODO4 percentage is greater than 5 then print("Get News").
-
+if percentage_difference > 5:
+    print("Get News")
+else:
+    print("Nothing special has happened")
     ## STEP 2: https://newsapi.org/ 
     # Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME. 
 
