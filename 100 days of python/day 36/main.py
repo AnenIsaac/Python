@@ -30,7 +30,7 @@ Positive_difference = abs(before_yesterday_closing_price - yesterday_closing_pri
 print(f"positive difference = {Positive_difference}")
 #TODO 4. - Work out the percentage difference in price between closing price yesterday and closing price the day before yesterday.
 percentage_difference = (Positive_difference / before_yesterday_closing_price) * 100
-print(percentage_difference)
+print(f"percentage difference = {percentage_difference}")
 #TODO 5. - If TODO4 percentage is greater than 5 then print("Get News").
 if percentage_difference > 5:
     print("Get News")
