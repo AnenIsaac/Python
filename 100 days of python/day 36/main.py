@@ -48,7 +48,7 @@ else:
     #to send a separate message with each article's title and description to your phone number. 
 
 #TODO 8. - Create a new list of the first 3 article's headline and description using list comprehension.
-
+#there seems to be an issue with the master and the main branch in this repository. Wait untill fixed to edit.
 #TODO 9. - Send each article as a separate message via Twilio. 
 
 
