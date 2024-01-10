@@ -1,13 +1,12 @@
 import requests
 
-
-
 STOCK_NAME = "TSLA"
 COMPANY_NAME = "Tesla Inc"
 
 STOCK_ENDPOINT = "https://www.alphavantage.co/query"
 STOCK_API_KEY = "GSVF0FMNWZCKBRJ6"
 NEWS_ENDPOINT = "https://newsapi.org/v2/everything"
+NEWS_API_KEY = "9151d9056ed14eef8160eeb30ef99dbd"
 
     ## STEP 1: Use https://www.alphavantage.co/documentation/#daily
 # When stock price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News").
@@ -30,7 +29,7 @@ Positive_difference = abs(before_yesterday_closing_price - yesterday_closing_pri
 print(f"positive difference = {Positive_difference}")
 #TODO 4. - Work out the percentage difference in price between closing price yesterday and closing price the day before yesterday.
 percentage_difference = (Positive_difference / before_yesterday_closing_price) * 100
-print(percentage_difference)
+print(f"percentage difference = {percentage_difference}")
 #TODO 5. - If TODO4 percentage is greater than 5 then print("Get News").
 if percentage_difference > 5:
     print("Get News")
@@ -41,14 +40,24 @@ else:
 
 #TODO 6. - Instead of printing ("Get News"), use the News API to get articles related to the COMPANY_NAME.
 
-#TODO 7. - Use Python slice operator to create a list that contains the first 3 articles. Hint: https://stackoverflow.com/questions/509211/understanding-slice-notation
+if percentage_difference > 0:
+    news_params = {
+        "apikey" : NEWS_API_KEY,
+        "qInTitle" : COMPANY_NAME,
+    }
 
+    news_response = requests.get(NEWS_ENDPOINT, params=news_params)
+    articles = news_response.json()["articles"]
+    
+#TODO 7. - Use Python slice operator to create a list that contains the first 3 articles. Hint: https://stackoverflow.com/questions/509211/understanding-slice-notation
+    three_articles = articles[:3]
+    print(three_articles)
 
     ## STEP 3: Use twilio.com/docs/sms/quickstart/python
     #to send a separate message with each article's title and description to your phone number. 
 
 #TODO 8. - Create a new list of the first 3 article's headline and description using list comprehension.
-#there seems to be an issue with the master and the main branch in this repository. Wait untill fixed to edit.
+
 #TODO 9. - Send each article as a separate message via Twilio. 
 
 
