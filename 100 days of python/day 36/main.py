@@ -57,7 +57,7 @@ if percentage_difference > 0:
     #to send a separate message with each article's title and description to your phone number. 
 
 #TODO 8. - Create a new list of the first 3 article's headline and description using list comprehension.
-f"Headline: {}. \nBrief: {}" for articles in three_articles
+
 #TODO 9. - Send each article as a separate message via Twilio. 
 
 
