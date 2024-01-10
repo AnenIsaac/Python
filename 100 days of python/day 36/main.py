@@ -1,5 +1,8 @@
 import requests
+from twilio.rest import Client
 
+TWILIO_SID = "AC9de5760c324ae7f89dab730976d99200"
+TWILIO_AUTH = "5bae7a72fbe7e0b661b8895f1ddbd4ec"
 STOCK_NAME = "TSLA"
 COMPANY_NAME = "Tesla Inc"
 
@@ -57,11 +60,21 @@ if percentage_difference > 0:
     #to send a separate message with each article's title and description to your phone number. 
 
 #TODO 8. - Create a new list of the first 3 article's headline and description using list comprehension.
-
+print("\n")
+print("\n")
+print("\n")
+formatted_article = [f"Headline: {article['title']}. \nBrief: {article['description']}" for article in three_articles]
+print(formatted_article)
 #TODO 9. - Send each article as a separate message via Twilio. 
 
+client = Client(TWILIO_SID, TWILIO_AUTH)
 
-
+for article in formatted_article:
+    message = client.messages.create(
+        body=article,
+        from_= "+12056905776",
+        to="+255763860354"
+    )
 #Optional TODO: Format the message like this: 
 """
 TSLA: 🔺2%
