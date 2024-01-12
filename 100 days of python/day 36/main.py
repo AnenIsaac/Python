@@ -2,7 +2,7 @@ import requests
 from twilio.rest import Client
 
 TWILIO_SID = "AC9de5760c324ae7f89dab730976d99200"
-TWILIO_AUTH = "5bae7a72fbe7e0b661b8895f1ddbd4ec"
+TWILIO_AUTH = "6e65fbf3cef06a1ffc0a9e965690e90a"
 STOCK_NAME = "TSLA"
 COMPANY_NAME = "Tesla Inc"
 
@@ -28,13 +28,13 @@ before_yesterday_last_element = list(time_series.items())[16][-1] if time_series
 before_yesterday_closing_price = float(before_yesterday_last_element['4. close'])
 print(f"before yesterday closing price = {before_yesterday_closing_price}")
 #TODO 3. - Find the positive difference between 1 and 2. e.g. 40 - 20 = -20, but the positive difference is 20. Hint: https://www.w3schools.com/python/ref_func_abs.asp
-Positive_difference = abs(before_yesterday_closing_price - yesterday_closing_price)
+Positive_difference = before_yesterday_closing_price - yesterday_closing_price
 print(f"positive difference = {Positive_difference}")
 #TODO 4. - Work out the percentage difference in price between closing price yesterday and closing price the day before yesterday.
 percentage_difference = (Positive_difference / before_yesterday_closing_price) * 100
 print(f"percentage difference = {percentage_difference}")
 #TODO 5. - If TODO4 percentage is greater than 5 then print("Get News").
-if percentage_difference > 5:
+if percentage_difference > 5 or percentage_difference < -5:
     print("Get News")
 else:
     print("Nothing special has happened")
@@ -42,8 +42,13 @@ else:
     # Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME. 
 
 #TODO 6. - Instead of printing ("Get News"), use the News API to get articles related to the COMPANY_NAME.
-
+updown = None
 if percentage_difference > 0:
+    updown = "🔺"
+else:
+    updown = "🔻"
+    
+if abs(percentage_difference) > 0:
     news_params = {
         "apikey" : NEWS_API_KEY,
         "qInTitle" : COMPANY_NAME,
@@ -63,7 +68,7 @@ if percentage_difference > 0:
 print("\n")
 print("\n")
 print("\n")
-formatted_article = [f"Headline: {article['title']}. \nBrief: {article['description']}" for article in three_articles]
+formatted_article = [f"{STOCK_NAME}: {updown} {round(percentage_difference, 2)}%\nHeadline: {article['title']}. \nBrief: {article['description']}" for article in three_articles]
 print(formatted_article)
 #TODO 9. - Send each article as a separate message via Twilio. 
 
