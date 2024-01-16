@@ -37,3 +37,15 @@ now_time = datetime.now().strftime("%X")
 GOOGLE_SHEET_NAME = "workout"
 sheet_endpoint = os.environ[
     "ENV_SHEETY_ENDPOINT"]
+
+# Sheety API Call & Authentication
+for exercise in result["exercises"]:
+    sheet_inputs = {
+        GOOGLE_SHEET_NAME: {
+            "date": today_date,
+            "time": now_time,
+            "exercise": exercise["name"].title(),
+            "duration": exercise["duration_min"],
+            "calories": exercise["nf_calories"]
+        }
+    }
