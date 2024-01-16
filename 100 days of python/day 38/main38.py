@@ -49,3 +49,31 @@ for exercise in result["exercises"]:
             "calories": exercise["nf_calories"]
         }
     }
+
+    # Sheety Authentication Option 1: No Auth
+    """
+    sheet_response = requests.post(sheet_endpoint, json=sheet_inputs)
+    """
+
+    # Sheety Authentication Option 2: Basic Auth
+    sheet_response = requests.post(
+        sheet_endpoint,
+        json=sheet_inputs,
+        auth=(
+            os.environ["ENV_SHEETY_USERNAME"],
+            os.environ["ENV_SHEETY_PASSWORD"],
+        )
+    )
+
+    # Sheety Authentication Option 3: Bearer Token
+    """
+    bearer_headers = {
+        "Authorization": f"Bearer {os.environ['ENV_SHEETY_TOKEN']}"
+    }
+    sheet_response = requests.post(
+        sheet_endpoint,
+        json=sheet_inputs,
+        headers=bearer_headers
+    )    
+    """
+    print(f"Sheety Response: \n {sheet_response.text}")
