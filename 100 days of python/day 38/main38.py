@@ -25,3 +25,15 @@ params = {
 
 response = requests.post(url=endpoint, headers=header, json=params)
 print(response.text)
+
+# it starts here
+print(f"Nutritionix API call: \n {result} \n")
+
+# Adding date and time
+today_date = datetime.now().strftime("%d/%m/%Y")
+now_time = datetime.now().strftime("%X")
+
+# Sheety Project API. Check your Google sheet name and Sheety endpoint
+GOOGLE_SHEET_NAME = "workout"
+sheet_endpoint = os.environ[
+    "ENV_SHEETY_ENDPOINT"]
