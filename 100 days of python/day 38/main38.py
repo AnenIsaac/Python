@@ -15,7 +15,8 @@ user_input = input("what did you do today?")
 header = {
     "x-app-id" : APPID, 
     "x-app-key" : APIKEYS,
-    "Content-Type": "application/json"
+    "Content-Type": "application/json",
+    "Authorization": "Bearer somerandomebearertoken123."
 }
  
 params = {
@@ -48,5 +49,5 @@ for item in list_of_exercise:
       "calories":round(item['nf_calories']),
     }
     }
-  response = requests.post(url=sheets_url, json = sheets_data)
+  response = requests.post(url=sheets_url, headers=header, json = sheets_data)
   print(response.text)
