@@ -1,5 +1,5 @@
 import requests
-import datetime
+from datetime import datetime
 
 APPID = "cfc758ec"
 APIKEYS = "ae7b0c777a53bbb111e8e6bce7c7cfc5"
@@ -36,17 +36,17 @@ params = {
 response = requests.post(url=endpoint, headers=header, json=params)
 data = response.json()
 list_of_exercise = data['exercises']
-response = requests.post(url=sheets_url, json = test_data)
+# response = requests.post(url=sheets_url, json = test_data)
 print(response.text)
 for item in list_of_exercise:
   sheets_data = {
     "workout": {
       "date": f"{datetime.now().strftime('%d/%m/%y')}",
       "time": f"{datetime.now().strftime('%H:%M:%S')}",
-      "exercise": item['name'],
-      "duration": item['duration_min'],
-      "calories":item['nf_calories']
+      "exercise": item['name'].title(),
+      "duration": round(item['duration_min']),
+      "calories":round(item['nf_calories']),
     }
     }
-  response = requests.post(url=sheets_url, header = header, json = sheets_data)
+  response = requests.post(url=sheets_url, json = sheets_data)
   print(response.text)
